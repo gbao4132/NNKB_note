@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",        
+    "password": "gbao4132", 
+    "database": "note_app_db_dev",  
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "gbao4132",
+    "database": "note_app_db_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "...", 
+    "password": "...", 
+    "database": "...", 
+    "host": "...",
+    "dialect": "postgres"
+  }
+}

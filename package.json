@@ -1,0 +1,22 @@
+{
+  "name": "note_app_db_dev",
+  "version": "1.0.0",
+  "description": "Ung dung ghi chu Node.js",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "sequelize"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express-validator": "^7.3.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
