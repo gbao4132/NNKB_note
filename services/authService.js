@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// Đảm bảo bạn đã cài đặt dotenv và file .env có JWT_SECRET
+// Đảm bảo đã cài đặt dotenv và file .env có JWT_SECRET
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
 const SALT_ROUNDS = 10;
 

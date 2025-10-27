@@ -45,7 +45,7 @@ class NoteService {
         return note.userId === userId;
     }
     
-    // ... [updateNote, deleteNote, shareNote sẽ được thêm sau]
+    // ... [chưa có updateNote, deleteNote, shareNote ]
 }
 
 module.exports = NoteService;

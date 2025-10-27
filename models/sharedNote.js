@@ -51,7 +51,6 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: DataTypes.NOW
         }
     }, { 
-        // Cấu hình: Tắt timestamps vì chúng ta dùng sharedAt thay thế
         timestamps: false, 
         
         // Ràng buộc duy nhất

@@ -11,7 +11,7 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        unique: true, // Đảm bảo email là duy nhất
+        unique: true, 
         allowNull: false
       },
       password: {

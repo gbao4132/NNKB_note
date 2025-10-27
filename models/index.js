@@ -5,7 +5,6 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
-// Sử dụng môi trường development mặc định
 const env = process.env.NODE_ENV || 'development'; 
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
@@ -14,10 +13,9 @@ let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  // Khởi tạo kết nối Sequelize từ config.json
+  // Khởi tạo kết nối Sequelize 
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-
 // Tải tất cả các file model trong thư mục này
 fs
   .readdirSync(__dirname)

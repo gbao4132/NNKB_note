@@ -86,9 +86,8 @@ class AuthController {
         }
     }
 
-    // Logout không cần logic phức tạp (chỉ cần xóa token phía client), nhưng có thể thêm logic nếu dùng blacklist token
+    // Logout ( xóa token phía client),  
     static logout(req, res) {
-        // Trong kiến trúc JWT Stateless, logout chỉ đơn giản là thông báo thành công
         return res.status(200).json({ message: 'Đăng xuất thành công (token cần được xóa khỏi client).' });
     }
 }

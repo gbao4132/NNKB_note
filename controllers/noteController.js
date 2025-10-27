@@ -4,7 +4,7 @@ const { handleValidationErrors } = require('../validators/authValidator'); // D�
 class NoteController {
     // Xử lý POST /api/notes
     static async createNote(req, res) {
-        // Validation đã chạy trước đó, giờ kiểm tra nếu có lỗi
+        //  kiểm tra lỗi
         const validationError = handleValidationErrors(req, res, () => {});
         if (validationError) return validationError;
 
@@ -35,7 +35,7 @@ class NoteController {
         }
     }
 
-    // ... [getNoteById, updateNote, deleteNote, shareNote sẽ được thêm sau]
+    //[chưa có getNoteById, updateNote, deleteNote, shareNote]
 }
 
 module.exports = NoteController;
