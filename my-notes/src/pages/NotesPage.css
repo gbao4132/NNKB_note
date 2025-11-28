@@ -1,0 +1,104 @@
+/* src/pages/NotesPage.css */
+.notes-page-container {
+  display: flex;
+  height: 100vh;
+}
+
+.notes-sidebar {
+  width: 280px;
+  max-width: 30%;
+  border-right: 1px solid #dcdcdc;
+  padding: 15px;
+  height: 100%;
+  background-color: #4b4242;
+  overflow-y: auto;
+}
+
+.notes-sidebar h3 {
+  font-size: 1.2rem;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  padding-left: 10px;
+}
+
+.notes-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.folder-item {
+  color: #000;
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.folder-item:hover {
+  background-color: #eaeaea;
+}
+
+.folder-item.selected {
+  background-color: #ffcc00; /* Màu vàng của Apple Notes */
+  font-weight: bold;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.folder-form input,
+.folder-form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.folder-form button {
+  background-color: #007aff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* CỘT 2: GIAO DIỆN CHÍNH (GHI CHÚ) */
+.notes-main-content {
+  flex: 1;
+  padding: 20px 30px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.create-note-form input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.create-note-form button {
+  display: none; /* Ẩn nút, chúng ta sẽ submit bằng Enter */
+}
+
+.date-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  border-bottom: 1px solid #eee;
+}

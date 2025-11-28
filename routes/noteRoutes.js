@@ -1,11 +1,40 @@
 const express = require('express');
 const router = express.Router();
 const NoteController = require('../controllers/noteController');
-const { verifyToken, checkOwnership } = require('../middlewares/authMiddleware');
+const {verifyToken} = require('../middlewares/authMiddleware.js');
 const { createNoteValidation } = require('../validators/noteValidator'); 
 
-router.post('/', verifyToken, NoteController.createNote); 
+// POST /api/notes: Tạo Ghi chú
+router.post('/', 
+    verifyToken, 
+    ...createNoteValidation, 
+    NoteController.createNote
+);
 
-router.get('/', verifyToken, NoteController.getAllNotes);
+// GET /api/notes: Lấy tất cả Ghi chú (theo ?folderId=)
+router.get('/', 
+    verifyToken, 
+    NoteController.getAllNotes
+);
+
+// GET /api/notes/:id: Lấy chi tiết 1 ghi chú
+router.get('/:id', 
+    verifyToken, 
+    NoteController.getNoteById
+);
+
+// PUT /api/notes/:id: Cập nhật ghi chú
+router.put('/:id', 
+    verifyToken, 
+    NoteController.updateNote
+);
+
+// DELETE /api/notes/:id: Xóa ghi chú
+router.delete('/:id', 
+    verifyToken, 
+    NoteController.deleteNote
+);
+
+// --- TOÀN BỘ CÁC ROUTE "SHARE" ĐÃ BỊ XÓA ---
 
 module.exports = router;

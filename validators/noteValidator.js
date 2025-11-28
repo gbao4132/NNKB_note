@@ -1,19 +1,29 @@
 const { body } = require('express-validator');
-const { handleValidationErrors } = require('./authValidator'); 
+const handleValidationErrors = require('../utils/validationHandler');
+const db = require('../models'); // Import db
 
+// Sửa lại validation cho 'Tạo Ghi chú'
 const createNoteValidation = [
-    body('title').isLength({ min: 3 }).withMessage('Tiêu đề phải dài ít nhất 3 ký tự.').trim().escape(),
-    body('content').optional().isString().withMessage('Nội dung phải là chuỗi hợp lệ.'),
-    handleValidationErrors
+    body('title')
+        .isLength({ min: 1 })
+        .withMessage('Tiêu đề không được để trống.')
+        .trim(),
+    body('content')
+        .optional()
+        .isString()
+        .withMessage('Nội dung phải là chuỗi hợp lệ.'),
+    
+    // --- THÊM QUY TẮC MỚI ---
+    body('folderId')
+        .notEmpty().withMessage('folderId là bắt buộc.')
+        .isInt().withMessage('folderId phải là một con số.')
+    ,handleValidationErrors
 ];
 
-const shareNoteValidation = [
-    body('targetUserId').isInt({ gt: 0 }).withMessage('ID người dùng chia sẻ phải là số nguyên dương.'),
-    body('permission').isIn(['read', 'edit']).withMessage('Quyền không hợp lệ. Phải là "read" hoặc "edit".'),
-    handleValidationErrors
-];
+// --- XÓA HOÀN TOÀN 'shareNoteValidation' ---
+// const shareNoteValidation = [ ... ]; // <-- XÓA BỎ KHỐI NÀY
 
 module.exports = {
-    createNoteValidation,
-    shareNoteValidation
+    createNoteValidation
+    // Không export 'shareNoteValidation' nữa
 };

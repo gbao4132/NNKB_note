@@ -1,0 +1,65 @@
+/* src/components/NoteItem.css */
+.note-item {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e5e5;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.note-item:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Khi đang ở chế độ hiển thị */
+.note-item-display h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  color: #1d1d1f;
+}
+
+.note-item-subtitle {
+  font-size: 0.85rem;
+  color: #888;
+  margin: 0;
+}
+.note-item-subtitle .folder-name {
+  font-weight: 500;
+  color: #666;
+}
+
+.note-item-buttons {
+  margin-top: 15px;
+}
+
+.note-item button {
+  color: #1d1d1f;
+  font-size: 0.8rem;
+  background: #f0f0f0;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.note-item button.delete-btn {
+  color: #d9534f;
+}
+
+/* Khi đang ở chế độ Sửa */
+.note-item-form input,
+.note-item-form textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+.note-item-form input {
+  font-weight: bold;
+}

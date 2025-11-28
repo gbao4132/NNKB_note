@@ -5,54 +5,29 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        userId: {
+        folderId: { //Khóa ngoại liên kết với Bảng Folders
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Users', 
+                model: 'Folders', // Tên bảng (số nhiều)
                 key: 'id'
-            },
-            validate: {
-                notNull: {
-                    msg: "Ghi chú phải có người sở hữu (userId)."
-                }
             }
         },
         title: {
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: { 
-                notEmpty: {
-                    msg: "Tiêu đề ghi chú không được để trống."
-                },
-                len: {
-                    args: [3, 255],
-                    msg: "Tiêu đề phải dài từ 3 đến 255 ký tự."
-                }
-            }
+            allowNull: false
         },
         content: {
-            type: DataTypes.TEXT
-        },
-        createdAt: {
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW
-        },
-        updatedAt: {
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW
+            type: DataTypes.TEXT // Dùng TEXT cho nội dung dài
         }
-    }, {});
+    }, {
+        timestamps: true
+    });
 
-    // Định nghĩa mối quan hệ
     Note.associate = (models) => {
-        Note.belongsTo(models.User, {
-            foreignKey: 'userId',
-            as: 'owner'
-        });
-        Note.hasMany(models.SharedNote, {
-            foreignKey: 'noteId',
-            as: 'shares'
+        Note.belongsTo(models.Folder, {
+            foreignKey: 'folderId',
+            as: 'folder'
         });
     };
 
