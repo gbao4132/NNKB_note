@@ -1,15 +1,25 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config(); 
 
 const db = require('./models'); 
 const authRoutes = require('./routes/authRoutes');
-const noteRoutes = require('./routes/noteRoutes');
+const noteRoutes = require('./routes/noteRoutes'); // Bạn đã có dòng này
 const folderRoutes = require('./routes/folderRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(cors());
+
+// --- BẠN SẼ THAY THẾ ĐOẠN CŨ BẰNG ĐOẠN NÀY ---
+// URL của frontend sau khi deploy (bạn sẽ có ở Bước 4)
+const frontendURL = "https://your-frontend-site.vercel.app"; 
+
+const corsOptions = {
+  origin: [frontendURL, 'http://localhost:5173'], // Cho phép cả local và production
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes

@@ -1,49 +1,26 @@
-const db = require('../models'); // Import models
+// services/folderService.js
+const db = require('../models');
 
 class FolderService {
-
-    /**
-     * Tạo một thư mục mới cho người dùng
-     * @param {number} userId - ID của người dùng (lấy từ token)
-     * @param {object} folderData - Dữ liệu thư mục (ví dụ: { name: 'Tên thư mục' })
-     * @returns {Promise<object>} Thư mục vừa được tạo
-     */
-    static async createFolder(userId, folderData) {
-        try {
-            const { name } = folderData;
-            
-            if (!name) {
-                throw new Error("Tên thư mục là bắt buộc.");
-            }
-
-            const newFolder = await db.Folder.create({
-                name: name,
-                userId: userId // Gán thư mục này cho người dùng đang đăng nhập
-            });
-
-            return newFolder;
-        } catch (error) {
-            console.error("Lỗi tại FolderService.createFolder:", error);
-            throw error;
-        }
+    static async getFolders(userId) {
+        return await db.Folder.findAll({
+            where: { userId },
+            order: [['createdAt', 'ASC']]
+        });
     }
 
-    /**
-     * Lấy tất cả thư mục của một người dùng
-     * @param {number} userId - ID của người dùng
-     * @returns {Promise<Array>} Danh sách các thư mục
-     */
-    static async getFoldersByUser(userId) {
-        try {
-            const folders = await db.Folder.findAll({
-                where: { userId: userId },
-                order: [['name', 'ASC']] // Sắp xếp theo tên A-Z
-            });
-            return folders;
-        } catch (error) {
-            console.error("Lỗi tại FolderService.getFoldersByUser:", error);
-            throw error;
+    static async createFolder(userId, name) {
+        return await db.Folder.create({ name, userId });
+    }
+
+    static async updateFolder(userId, folderId, newName) {
+        const folder = await db.Folder.findOne({ where: { id: folderId, userId } });
+        if (!folder) {
+            throw new Error('Không tìm thấy thư mục hoặc bạn không có quyền sửa.');
         }
+        folder.name = newName;
+        await folder.save();
+        return folder;
     }
 }
 

@@ -17,6 +17,26 @@ router.get('/',
     NoteController.getAllNotes
 );
 
+// --- TRASH ROUTES ---
+
+// GET /api/notes/trashed: Lấy ghi chú trong thùng rác
+router.get('/trashed',
+    verifyToken,
+    NoteController.getTrashedNotes
+);
+
+// POST /api/notes/:id/restore: Khôi phục ghi chú
+router.post('/:id/restore',
+    verifyToken,
+    NoteController.restoreNote
+);
+
+// DELETE /api/notes/:id/permanent: Xóa ghi chú vĩnh viễn
+router.delete('/:id/permanent',
+    verifyToken,
+    NoteController.deleteNotePermanently
+);
+
 // GET /api/notes/:id: Lấy chi tiết 1 ghi chú
 router.get('/:id', 
     verifyToken, 

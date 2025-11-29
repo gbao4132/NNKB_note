@@ -1,0 +1,124 @@
+/* src/pages/AuthPage.css */
+:root {
+  --auth-bg: #f0f2f5;
+  --auth-container-bg: #ffffff;
+  --auth-text-color: #333;
+  --auth-input-bg: #f7f7f7;
+  --auth-border-color: #ddd;
+  --auth-primary-color: #ffdb4d;
+  --auth-primary-text: #000;
+  --auth-error-color: #d93025;
+}
+
+[data-theme='dark'] {
+  --auth-bg: #18191a;
+  --auth-container-bg: #242526;
+  --auth-text-color: #e4e6eb;
+  --auth-input-bg: #3a3b3c;
+  --auth-border-color: #444;
+  --auth-error-color: #ff8a80;
+}
+
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--auth-bg);
+  color: var(--auth-text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.auth-container {
+  position: relative;
+  background-color: var(--auth-container-bg);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-container h2 {
+  margin-bottom: 24px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--auth-text-color);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-group {
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--auth-border-color);
+  background-color: var(--auth-input-bg);
+  color: var(--auth-text-color);
+  font-size: 1rem;
+}
+.input-group input:focus {
+  outline: none;
+  border-color: var(--auth-primary-color);
+}
+
+.auth-button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--auth-primary-color);
+  color: var(--auth-primary-text);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+}
+
+.auth-button:hover {
+  filter: brightness(0.95);
+}
+
+.error-message {
+  color: var(--auth-error-color);
+  margin-top: 16px;
+  font-weight: 500;
+}
+
+.redirect-link {
+  margin-top: 24px;
+  font-size: 0.95rem;
+}
+
+.redirect-link a {
+  color: var(--auth-primary-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+.redirect-link a:hover {
+  text-decoration: underline;
+}
+
+.auth-theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+}

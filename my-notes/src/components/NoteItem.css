@@ -1,65 +1,173 @@
-/* src/components/NoteItem.css */
 .note-item {
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 15px 20px;
-  margin-bottom: 15px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e5e5;
-  cursor: pointer;
+  background-color: var(--note-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
   transition: box-shadow 0.2s ease;
+  position: relative;
+  cursor: pointer;
 }
 
 .note-item:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Khi đang ở chế độ hiển thị */
 .note-item-display h3 {
-  margin: 0 0 5px 0;
-  font-size: 1.1rem;
-  color: #1d1d1f;
+  margin: 0 0 4px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-color);
 }
 
 .note-item-subtitle {
   font-size: 0.85rem;
-  color: #888;
+  color: var(--text-color-light);
   margin: 0;
 }
-.note-item-subtitle .folder-name {
-  font-weight: 500;
-  color: #666;
+
+.note-item-content {
+    padding-top: 8px;
+    font-size: 0.95rem;
+    color: var(--text-color-light);
+    line-height: 1.5;
+    /* Create a fade-out effect for long content */
+    max-height: 100px;
+    overflow: hidden;
+    position: relative;
+}
+.note-item-content:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent, var(--note-bg-color));
+}
+
+.note-item-content.ql-editor {
+    padding: 0;
+    min-height: 0;
+    max-height: none;
+}
+.note-item-content.ql-editor:after {
+    display: none;
+}
+
+
+.note-tags {
+    margin-top: 12px;
+}
+
+.note-tag {
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: var(--text-color-light);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-right: 6px;
+    margin-bottom: 6px;
 }
 
 .note-item-buttons {
-  margin-top: 15px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.note-item:hover .note-item-buttons {
+  opacity: 1;
 }
 
 .note-item button {
-  color: #1d1d1f;
   font-size: 0.8rem;
-  background: #f0f0f0;
+  background: #e9e9e9;
   border: none;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
-  margin-right: 10px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+.note-item button:hover {
+    background-color: #dcdcdc;
 }
 .note-item button.delete-btn {
-  color: #d9534f;
+  color: var(--danger-color);
+}
+.note-item button.delete-btn:hover {
+  background-color: #fee2e2;
+}
+.note-item button.share-btn {
+  background-color: #cce7ff;
+  color: #005a9e;
+}
+.note-item button.share-btn:hover {
+  background-color: #b3d7ff;
 }
 
-/* Khi đang ở chế độ Sửa */
-.note-item-form input,
-.note-item-form textarea {
+
+/* Edit Mode */
+.note-item-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.note-item-form input[name="title"] {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1.4rem;
+  font-weight: 700;
+  background-color: transparent;
+}
+.note-item-form input[name="title"]:focus {
+    outline: none;
+    border-bottom-color: var(--primary-color);
+}
+
+.note-item-form input[name="tags"] {
   width: 100%;
   padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  font-family: inherit;
-  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  background-color: #f9f9f9;
 }
-.note-item-form input {
-  font-weight: bold;
+
+
+.note-item-form .ql-toolbar {
+    border: 1px solid var(--border-color);
+    border-radius: 8px 8px 0 0;
+    background-color: #fdfdfd;
+}
+.note-item-form .ql-container {
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    min-height: 150px;
+}
+
+.note-item-form-buttons {
+    display: flex;
+    gap: 10px;
+    align-self: flex-start;
+}
+.note-item-form-buttons button {
+    padding: 10px 20px;
+    font-weight: 600;
+}
+.note-item-form-buttons button[type="submit"]{
+    background-color: var(--primary-color);
+    color: #000;
+}
+.note-item-form-buttons button[type="submit"]:hover{
+    background-color: var(--primary-color-hover);
 }

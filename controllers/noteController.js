@@ -8,11 +8,11 @@ class NoteController {
      * Tạo Ghi chú (Body cần { title, content, folderId })
      */
     static async createNote(req, res) {
-        const { title, content, folderId } = req.body;
+        const { title, content, folderId, tags } = req.body;
         const userId = req.userId; // Lấy từ verifyToken
 
         try {
-            const note = await NoteService.createNote(userId, { title, content, folderId });
+            const note = await NoteService.createNote(userId, { title, content, folderId, tags });
             return res.status(201).json(note);
         
         } catch (error) {
@@ -80,10 +80,10 @@ class NoteController {
     static async updateNote(req, res) {
         const noteId = req.params.id;
         const userId = req.userId;
-        const { title, content } = req.body; // Chỉ cho phép sửa title/content
+        const { title, content, tags } = req.body; // Chỉ cho phép sửa title/content/tags
 
         try {
-            await NoteService.updateNote(userId, noteId, { title, content });
+            await NoteService.updateNote(userId, noteId, { title, content, tags });
             return res.status(200).json({ message: 'Cập nhật ghi chú thành công.' });
         
         } catch (error) {
@@ -119,6 +119,63 @@ class NoteController {
     }
     
     // --- TOÀN BỘ CONTROLLER 'shareNote' VÀ 'unshareNote' ĐÃ BỊ XÓA ---
+
+    // --- TRASH CONTROLLERS ---
+
+    /**
+     * GET /api/notes/trashed
+     * Lấy danh sách ghi chú trong thùng rác
+     */
+    static async getTrashedNotes(req, res) {
+        const userId = req.userId;
+        try {
+            const notes = await NoteService.getTrashedNotes(userId);
+            return res.status(200).json(notes);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Lỗi server khi lấy danh sách ghi chú đã xóa.' });
+        }
+    }
+
+    /**
+     * POST /api/notes/:id/restore
+     * Khôi phục ghi chú từ thùng rác
+     */
+    static async restoreNote(req, res) {
+        const noteId = req.params.id;
+        const userId = req.userId;
+
+        try {
+            await NoteService.restoreNote(userId, noteId);
+            return res.status(200).json({ message: 'Khôi phục ghi chú thành công.' });
+        } catch (error) {
+            if (error.message.includes("Không tìm thấy") || error.message.includes("không có quyền")) {
+                return res.status(404).json({ message: error.message });
+            }
+            console.error(error);
+            return res.status(500).json({ message: 'Lỗi server khi khôi phục.' });
+        }
+    }
+
+    /**
+     * DELETE /api/notes/:id/permanent
+     * Xóa vĩnh viễn ghi chú
+     */
+    static async deleteNotePermanently(req, res) {
+        const noteId = req.params.id;
+        const userId = req.userId;
+
+        try {
+            await NoteService.deleteNotePermanently(userId, noteId);
+            return res.status(204).send(); // 204 No Content
+        } catch (error) {
+            if (error.message.includes("Không tìm thấy") || error.message.includes("không có quyền")) {
+                return res.status(404).json({ message: error.message });
+            }
+            console.error(error);
+            return res.status(500).json({ message: 'Lỗi server khi xóa vĩnh viễn.' });
+        }
+    }
 }
 
 module.exports = NoteController;

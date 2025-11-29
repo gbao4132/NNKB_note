@@ -19,6 +19,15 @@ module.exports = (sequelize, DataTypes) => {
         },
         content: {
             type: DataTypes.TEXT // Dùng TEXT cho nội dung dài
+        },
+        tags: {
+            type: DataTypes.JSON, // Lưu trữ tags dưới dạng JSON array
+            allowNull: true
+        },
+        status: {
+            type: DataTypes.STRING,
+            defaultValue: 'active', // 'active', 'trashed'
+            allowNull: false
         }
     }, {
         timestamps: true

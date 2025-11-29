@@ -8,7 +8,8 @@ class FolderController {
         const { name } = req.body; // Lấy tên thư mục từ body
 
         try {
-            const newFolder = await FolderService.createFolder(userId, { name });
+            // SỬA LỖI: Truyền thẳng 'name' thay vì object { name }
+            const newFolder = await FolderService.createFolder(userId, name);
             return res.status(201).json(newFolder);
         
         } catch (error) {
@@ -24,7 +25,8 @@ class FolderController {
         const userId = req.userId; // Lấy từ middleware verifyToken
 
         try {
-            const folders = await FolderService.getFoldersByUser(userId);
+            // SỬA LỖI: Gọi đúng tên hàm là getFolders
+            const folders = await FolderService.getFolders(userId);
             return res.status(200).json(folders);
 
         } catch (error) {

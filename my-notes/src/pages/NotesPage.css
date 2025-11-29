@@ -1,24 +1,102 @@
-/* src/pages/NotesPage.css */
 .notes-page-container {
   display: flex;
+  flex-direction: column;
   height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
+/* --- THEME VARIABLES --- */
+:root {
+  --bg-color: #fff;
+  --text-color: #000;
+  --sidebar-bg-color: #f7f7f7;
+  --note-bg-color: #fff;
+  --border-color: #e0e0e0;
+  --primary-color: #ffdb4d;
+  --primary-color-hover: #f2c900;
+  --text-color-light: #555;
+  --button-bg: #e0e0e0;
+}
+
+[data-theme='dark'] {
+  --bg-color: #1a1a1a;
+  --text-color: #fff;
+  --sidebar-bg-color: #252525;
+  --note-bg-color: #1a1a1a;
+  --border-color: #444;
+  --primary-color: #ffdb4d;
+  --primary-color-hover: #f2c900;
+  --text-color-light: #aaa;
+  --button-bg: #333;
+}
+
+
+/* --- HEADER --- */
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-button {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.header-button:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.theme-toggle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0;
+  color: var(--text-color);
+}
+
+.notes-body {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+
+/* --- SIDEBAR --- */
 .notes-sidebar {
   width: 280px;
-  max-width: 30%;
-  border-right: 1px solid #dcdcdc;
-  padding: 15px;
-  height: 100%;
-  background-color: #4b4242;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border-color);
+  padding: 16px 8px;
+  background-color: var(--sidebar-bg-color);
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
 }
 
 .notes-sidebar h3 {
-  font-size: 1.2rem;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  padding-left: 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 16px 0 8px 16px;
+  color: var(--text-color);
 }
 
 .notes-sidebar ul {
@@ -28,77 +106,190 @@
 }
 
 .folder-item {
-  color: #000;
   display: flex;
   align-items: center;
-  padding: 10px 12px;
+  padding: 10px 16px;
   cursor: pointer;
   border-radius: 8px;
   font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-color);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .folder-item:hover {
-  background-color: #eaeaea;
+  background-color: var(--button-bg);
 }
 
 .folder-item.selected {
-  background-color: #ffcc00; /* Màu vàng của Apple Notes */
-  font-weight: bold;
+  background-color: var(--primary-color);
+  color: #000;
+  font-weight: 600;
 }
 
-.logout-button {
+.folder-form {
+  padding: 0 8px;
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+}
+.folder-form input {
+  flex-grow: 1;
   width: 100%;
-  padding: 10px;
-  background-color: #d9534f;
-  color: white;
-  border: none;
+  padding: 10px 14px;
   border-radius: 8px;
+  border: 1px solid var(--border-color);
+  font-size: 0.95rem;
+  background-color: var(--button-bg);
+  color: var(--text-color);
+}
+.folder-form button {
+  padding: 0 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--primary-color);
+  color: #000;
   cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+.folder-form button:hover{
+    background-color: var(--primary-color-hover);
+}
+
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 12px 8px 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.trash-button {
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  color: var(--text-color-light);
   font-size: 1rem;
-  margin-bottom: 20px;
-}
-
-.folder-form input,
-.folder-form button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.folder-form button {
-  background-color: #007aff;
-  color: white;
-  border: none;
+  font-weight: 500;
+  text-align: left;
   cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-/* CỘT 2: GIAO DIỆN CHÍNH (GHI CHÚ) */
-.notes-main-content {
+.trash-button:hover {
+  background-color: var(--button-bg);
+  color: var(--text-color);
+}
+
+/* --- MAIN AREA (LIST + EDITOR) --- */
+.notes-main-area {
+  display: flex;
   flex: 1;
-  padding: 20px 30px;
-  height: 100%;
+  overflow: hidden;
+}
+
+/* --- NOTES LIST PANEL --- */
+.notes-list-panel {
+  width: 400px; /* Or adjust as needed */
+  border-right: 1px solid var(--border-color);
+  padding: 16px 24px;
   overflow-y: auto;
 }
 
-.create-note-form input {
-  width: 100%;
-  padding: 12px;
-  font-size: 1.1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin-bottom: 20px;
+.notes-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 16px;
 }
+
+.search-input {
+    flex-grow: 1;
+    padding: 10px 16px;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+}
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: var(--bg-color);
+}
+
+
+.create-note-form {
+    display: flex;
+    flex-shrink: 0;
+}
+
 .create-note-form button {
-  display: none; /* Ẩn nút, chúng ta sẽ submit bằng Enter */
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--primary-color);
+  color: #000;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+.create-note-form button:hover {
+    background-color: var(--primary-color-hover);
 }
 
 .date-header {
   font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 25px;
-  margin-bottom: 10px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 24px 0 12px 0;
   padding-left: 10px;
-  border-bottom: 1px solid #eee;
+}
+
+/* --- EDITOR PANEL --- */
+.editor-panel {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Important for Quill editor */
+}
+
+.editor-title-input {
+  width: 100%;
+  padding: 20px 24px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+.editor-title-input:focus {
+  outline: none;
+}
+
+/* --- REACT QUILL EDITOR STYLES --- */
+.editor-panel .ql-toolbar {
+  background-color: var(--bg-color);
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-color: var(--border-color) !important;
+}
+
+.editor-panel .ql-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: var(--bg-color);
+  border: none !important;
+}
+
+.editor-panel .ql-editor {
+  color: var(--text-color);
 }

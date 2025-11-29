@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import './AuthPage.css'; // Import CSS để tạo giao diện
 
 function RegisterPage() {
     // 1. THÊM STATE CHO HỌ TÊN
@@ -19,9 +20,12 @@ function RegisterPage() {
         setLoading(true);
 
         try {
+            // Sử dụng biến môi trường cho URL của API
+            const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+
             // 2. GỬI KÈM 'fullName' TRONG REQUEST
-            await axios.post('http://localhost:3000/api/auth/register', {
-                fullName: fullName, // <-- GỬI ĐI
+            await axios.post(`${API_URL}/api/auth/register`, {
+                fullName: fullName,
                 email: email,
                 password: password
             });
@@ -50,49 +54,54 @@ function RegisterPage() {
     };
 
     return (
-        <div>
-            <h2>Đăng ký tài khoản mới</h2>
-            <form onSubmit={handleRegister}>
+        <div className="auth-page">
+            <div className="auth-container">
+                <h2>Đăng ký tài khoản mới</h2>
+                <form onSubmit={handleRegister} className="auth-form">
+                    
+                    {/* 3. THÊM Ô INPUT CHO HỌ TÊN */}
+                    <div className="input-group">
+                        <label htmlFor="fullName">Họ và Tên:</label>
+                        <input 
+                            id="fullName"
+                            type="text" 
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)} 
+                            required 
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label htmlFor="email">Email:</label>
+                        <input 
+                            id="email"
+                            type="email" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)} 
+                            required 
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="password">Mật khẩu:</label>
+                        <input 
+                            id="password"
+                            type="password" 
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)} 
+                            required 
+                        />
+                    </div>
+                    <button type="submit" disabled={loading} className="auth-button">
+                        {loading ? 'Đang xử lý...' : 'Đăng ký'}
+                    </button>
+                </form>
                 
-                {/* 3. THÊM Ô INPUT CHO HỌ TÊN */}
-                <div>
-                    <label>Họ và Tên:</label>
-                    <input 
-                        type="text" 
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)} 
-                        required 
-                    />
-                </div>
+                {error && <p className="error-message">{error}</p>}
 
-                <div>
-                    <label>Email:</label>
-                    <input 
-                        type="email" 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)} 
-                        required 
-                    />
-                </div>
-                <div>
-                    <label>Mật khẩu:</label>
-                    <input 
-                        type="password" 
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)} 
-                        required 
-                    />
-                </div>
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Đang xử lý...' : 'Đăng ký'}
-                </button>
-            </form>
-            
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-
-            <p>
-                Đã có tài khoản? <Link to="/login">Đăng nhập tại đây</Link>
-            </p>
+                <p className="redirect-link">
+                    Đã có tài khoản? <Link to="/login">Đăng nhập tại đây</Link>
+                </p>
+            </div>
         </div>
     );
 }
