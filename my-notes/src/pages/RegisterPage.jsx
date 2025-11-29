@@ -21,7 +21,7 @@ function RegisterPage() {
 
         try {
             // Sử dụng biến môi trường cho URL của API
-            const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+            const API_URL = import.meta.env.VITE_API_BASE_URL || '${import.meta.env.VITE_API_URL}';
 
             // 2. GỬI KÈM 'fullName' TRONG REQUEST
             await axios.post(`${API_URL}/api/auth/register`, {
